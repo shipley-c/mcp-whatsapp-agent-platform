@@ -57,6 +57,11 @@ follow Meta's business and messaging policies.
   to 30 days. See WhatsApp's
   [Terms of Service for Use of Third Party Agents](https://www.whatsapp.com/legal/third-party-agents-terms).
   The bridge then hands them to Claude Code, which sends them to your model provider.
+- **Never send secrets over this channel.** No passwords, API keys, tokens, recovery codes or anything
+  else you wouldn't want Meta to hold a decrypted copy of. That applies in both directions: what you send
+  your agent, and what your agent sends you. Only use this bridge if you're comfortable with Meta seeing
+  everything in the conversation. Pass secrets on the machine itself instead, for example in a mode-600
+  file or your secret manager.
 - **Your API key is a credential for your agent.** Keep it in a mode-600 file. The server warns you if the
   file is readable by other users, and it never logs the key. Rotating the key in WhatsApp invalidates the
   old one.
