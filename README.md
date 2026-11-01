@@ -109,6 +109,40 @@ follow Meta's business and messaging policies.
 Sessions started with plain `claude` still get the `send` tool, for notices like "deploy finished", but
 they don't receive messages.
 
+### About `--dangerously-load-development-channels`
+
+Claude Code [channels](https://code.claude.com/docs/en/channels) are a research preview. The regular
+`--channels` option only loads channel plugins that Anthropic has allowlisted. This server isn't on that
+list, so receiving messages needs the development flag:
+
+```sh
+claude --dangerously-load-development-channels server:whatsapp
+```
+
+What the flag does and doesn't do:
+
+- **It does** let the named MCP server (`server:whatsapp`, and only that one) push messages into your
+  session. Text that you didn't type at the keyboard becomes input to the agent. That's the whole point
+  here, and it's why the flag is labeled "dangerously". Only name channel servers whose code you trust.
+- **It doesn't** skip permission prompts or change your permission settings. It's unrelated to
+  `--dangerously-skip-permissions`. Tool calls requested from WhatsApp still go through the same prompts
+  as anything you type.
+- It applies only to the session you start with it. Other sessions aren't affected.
+
+**Turning it off.** `bin/claude-wa` is a three-line wrapper that adds the flag and sets
+`WHATSAPP_CHANNEL=1`. To run without it:
+
+- **For one session:** start plain `claude` instead of `claude-wa`. You keep `send` and `send_file`, but
+  you don't receive messages.
+- **Permanently in the wrapper:** edit `bin/claude-wa` (or your copy on your `PATH`). Delete the
+  `export WHATSAPP_CHANNEL=1` line and change the last line to:
+  ```sh
+  exec claude "$@"
+  ```
+  At that point the wrapper is the same as plain `claude`, so you can also just remove it.
+- **For a running session:** exit and restart it without the flag. The channel can't be turned off from
+  inside a session.
+
 ## Configuration
 
 | Variable | Default | Meaning |
