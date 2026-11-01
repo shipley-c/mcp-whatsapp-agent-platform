@@ -17,8 +17,8 @@ your phone ─► WhatsApp Agent Platform ─GET /updates (long poll)─► mcp-
 This is **not** a WhatsApp bot, a business messaging integration, or a way for Claude to message
 people on your behalf. Its scope is deliberately narrow:
 
-- **One person.** It only talks to the agent's creator, meaning the WhatsApp account that created the
-  agent in Settings → Agents. The platform enforces this: sending to anyone else is rejected with
+- **One person.** It only talks to the agent profile's creator, meaning the WhatsApp account that created
+  the agent profile in Settings → Agents. The platform enforces this: sending to anyone else is rejected with
   403 / `131005`, and so is a read receipt for anyone else's message.
 - **No access to your other chats.** It doesn't log in as your WhatsApp account and can't see your
   contacts or conversations. It only sees what you send to the agent.
@@ -36,7 +36,7 @@ follow Meta's business and messaging policies.
 | | mcp-whatsapp-agent-platform | WhatsApp Web bridges | Cloud API bridges |
 |---|---|---|---|
 | API | Official WhatsApp Agent Platform | Unofficial, emulates WhatsApp Web | Official WhatsApp Business Platform |
-| Account | Your personal WhatsApp, via an agent you create | Logs in as your personal account | A Meta business number |
+| Account | Your personal WhatsApp, via an agent profile you create | Logs in as your personal account | A Meta business number |
 | Sees your other chats | No | Yes | No |
 | Public webhook needed | No (long polling) | No | Yes (public HTTPS) |
 | Who it can message | Only you | Anyone | Customers who opt in |
@@ -183,10 +183,10 @@ only show tool descriptions to the model.
 
 ## Behavior and limits
 
-- **One poller per agent.** A lock file makes sure only one Claude session receives messages, because a
+- **One poller per agent profile.** A lock file makes sure only one Claude session receives messages, because a
   second poller would make Meta return 409 to the first. Other sessions are send-only, and they take over
   when the poller exits.
-- **Stays under Meta's rate limits:** 12 sends, 12 read receipts and 15 polls per minute, per agent.
+- **Stays under Meta's rate limits:** 12 sends, 12 read receipts and 15 polls per minute, per agent profile.
 - **Inbound:** reads text, images and documents. Images and documents are saved for Claude's Read tool,
   then deleted from Meta's servers (set `WHATSAPP_DELETE_MEDIA=0` to keep Meta's copy). Reactions reach
   Claude with the emoji and the message they're on. Audio, video and stickers are reported but not read.
