@@ -1,4 +1,4 @@
-# claude-whatsapp
+# mcp-whatsapp-agent-platform
 
 A private WhatsApp line between you and your own Claude Code session.
 
@@ -8,7 +8,7 @@ your agent from your phone, and the message arrives in your running Claude Code 
 you in the same chat.
 
 ```
-your phone ─► WhatsApp Agent Platform ─GET /updates (long poll)─► claude-whatsapp (MCP, stdio) ─channel─► Claude Code
+your phone ─► WhatsApp Agent Platform ─GET /updates (long poll)─► mcp-whatsapp-agent-platform (MCP, stdio) ─channel─► Claude Code
            ◄─                         ◄─POST /messages─────────── `send` tool ◄─────────────────────────────
 ```
 
@@ -33,7 +33,7 @@ follow Meta's business and messaging policies.
 
 ### How this differs from other WhatsApp + Claude projects
 
-| | claude-whatsapp | WhatsApp Web bridges | Cloud API bridges |
+| | mcp-whatsapp-agent-platform | WhatsApp Web bridges | Cloud API bridges |
 |---|---|---|---|
 | API | Official WhatsApp Agent Platform | Unofficial, emulates WhatsApp Web | Official WhatsApp Business Platform |
 | Account | Your personal WhatsApp, via an agent you create | Logs in as your personal account | A Meta business number |
@@ -97,7 +97,7 @@ follow Meta's business and messaging policies.
    ```
 4. Register the server with Claude Code:
    ```sh
-   claude mcp add --scope user whatsapp -- node /path/to/claude-whatsapp/server.mjs
+   claude mcp add --scope user whatsapp -- node /path/to/mcp-whatsapp-agent-platform/server.mjs
    ```
 5. Start a session with the channel turned on. `bin/claude-wa` wraps
    `claude --dangerously-load-development-channels server:whatsapp` and sets `WHATSAPP_CHANNEL=1`:

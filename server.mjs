@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// claude-whatsapp: a Claude Code channel + tools for Meta's WhatsApp Agent Platform (/agent/v1).
+// mcp-whatsapp-agent-platform: an MCP server (tools + Claude Code channel) for Meta's WhatsApp Agent Platform (/agent/v1).
 //
 // - Inbound: long-polls GET /updates and pushes the creator's messages into the Claude Code session
 //   as <channel source="whatsapp" ...> events (only when WHATSAPP_CHANNEL=1, see README).
@@ -31,7 +31,7 @@ const MIN_POLL_GAP_MS = 4500 // Meta allows 15 GET /updates per minute
 const CHANNEL = process.env.WHATSAPP_CHANNEL === '1'
 const RELAY = CHANNEL && process.env.WHATSAPP_PERMISSION_RELAY === '1'
 
-const log = (...a) => console.error('[claude-whatsapp]', ...a)
+const log = (...a) => console.error('[mcp-whatsapp-agent-platform]', ...a)
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 // ---------------------------------------------------------------- config & state
@@ -623,7 +623,7 @@ if (CHANNEL && KEY) {
     pollLoop()
   } else {
     // Usually a reconnect racing the old instance's exit: keep trying so we take over once it is gone.
-    log('another claude-whatsapp process is already polling; send-only until its lock frees up')
+    log('another mcp-whatsapp-agent-platform process is already polling; send-only until its lock frees up')
     const retry = setInterval(() => {
       if (acquirePollLock()) {
         clearInterval(retry)
