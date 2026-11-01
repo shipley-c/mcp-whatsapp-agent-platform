@@ -281,14 +281,20 @@ function startTyping(messageId) {
 
 // Meta accepts a read receipt only for the creator's own messages (403 / 131005 otherwise),
 // which makes it an authoritative sender check (Developer Manual, POST /agent/v1/statuses errors).
-async function confirmCreator(sender, messageId) {
+async function confirmCreator(sender, messageId, showTyping = true) {
   const state = readState()
   const known = state.creator === sender
   if (!known && (state.non_creators || []).includes(sender)) return false
   try {
     await statusWindow.acquire()
     await api('POST', '/statuses', {
-      body: { messaging_product: 'whatsapp', status: 'read', message_id: messageId, typing_indicator: { type: 'text' } },
+      body: {
+        messaging_product: 'whatsapp',
+        status: 'read',
+        message_id: messageId,
+        // No typing indicator for reactions: Meta asks agents to show it only when a reply is coming.
+        ...(showTyping ? { typing_indicator: { type: 'text' } } : {}),
+      },
     })
   } catch (e) {
     if (e.status === 403 || e.code === 131005) {
@@ -530,7 +536,7 @@ async function deliver(message) {
   if (typeof sender !== 'string' || typeof id !== 'string') return
   const state = readState()
   if ((state.seen || []).includes(id)) return
-  if (!(await confirmCreator(sender, id))) return
+  if (!(await confirmCreator(sender, id, message.type !== 'reaction'))) return
   const text = await describe(message)
   updateState({ seen: [...(readState().seen || []), id].slice(-200) })
   if (handlePermissionReply(text)) return
