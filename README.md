@@ -78,7 +78,7 @@ follow Meta's business and messaging policies.
 - Node.js 22 or newer
 - Claude Code with channels support. Custom channels currently need
   `--dangerously-load-development-channels` (see the channels docs).
-- A WhatsApp account that can create agents (Settings → Agents)
+- A WhatsApp account that can create agent profiles (Settings → Agents)
 
 ## Setup
 
