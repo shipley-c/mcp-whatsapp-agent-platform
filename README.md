@@ -162,6 +162,15 @@ only show tool descriptions to the model.
 - **Polling:** follows the manual's guidance on offsets. Handled message IDs are recorded, so a restart
   doesn't replay the backlog.
 
+## Roadmap
+
+Planned features are tracked as [issues](https://github.com/shipley-c/mcp-whatsapp-agent-platform/issues?q=is%3Aissue+label%3Aenhancement):
+
+- [#1 Voice note transcription](https://github.com/shipley-c/mcp-whatsapp-agent-platform/issues/1) (Workers AI Whisper, or local Whisper)
+- [#2 Opt-in conversation history (SQLite)](https://github.com/shipley-c/mcp-whatsapp-agent-platform/issues/2)
+- [#3 Rate-limit feedback for chatty agents](https://github.com/shipley-c/mcp-whatsapp-agent-platform/issues/3)
+- [#4 Switch or start sessions from WhatsApp](https://github.com/shipley-c/mcp-whatsapp-agent-platform/issues/4)
+
 ## Status
 
 This is a personal project, and it isn't affiliated with Meta, WhatsApp or Anthropic. Both the WhatsApp
