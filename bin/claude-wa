@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Claude Code with the WhatsApp channel: inbound WhatsApp messages land in this session.
+# Set WHATSAPP_PERMISSION_RELAY=1 to also approve tool prompts from WhatsApp ("yes abcde").
+export WHATSAPP_CHANNEL=1
+export MCP_PROTOCOL_NEGOTIATION="${MCP_PROTOCOL_NEGOTIATION:-legacy}"
+exec claude --dangerously-load-development-channels server:whatsapp "$@"

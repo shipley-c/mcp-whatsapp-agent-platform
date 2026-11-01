@@ -1,0 +1,34 @@
+{
+  "name": "claude-whatsapp",
+  "version": "0.1.0",
+  "description": "Private WhatsApp channel between you and your own Claude Code session, via Meta's WhatsApp Agent Platform (/agent/v1)",
+  "type": "module",
+  "main": "server.mjs",
+  "bin": {
+    "claude-whatsapp": "server.mjs"
+  },
+  "scripts": {
+    "check": "node server.mjs --check"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "zod": "4.6.7"
+  },
+  "files": [
+    "server.mjs",
+    "bin/",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "claude-code",
+    "mcp",
+    "channels",
+    "whatsapp",
+    "whatsapp-agent-platform"
+  ]
+}

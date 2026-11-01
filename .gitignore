@@ -1,0 +1,8 @@
+node_modules/
+# secrets and runtime state never belong in the repo
+env
+.env
+*.env
+state.json
+poller.lock
+media/
